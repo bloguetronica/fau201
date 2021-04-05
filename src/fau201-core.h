@@ -1,5 +1,5 @@
-/* FAU201 core functions - Version 1.0
-   Copyright (c) 2018 Samuel Lourenço
+/* FAU201 core functions - Version 1.1
+   Copyright (c) 2018-2019 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
    under the terms of the GNU Lesser General Public License as published by
@@ -33,14 +33,14 @@
 extern int err_level;
 
 // Function prototypes
-void configure_spi_mode(libusb_device_handle *devhandle, unsigned char channel, bool cpol, bool cpha);
-void disable_cs(libusb_device_handle *devhandle, unsigned char channel);
-void disable_spi_delays(libusb_device_handle *devhandle, unsigned char channel);
+void configure_spi_mode(libusb_device_handle *devhandle, uint8_t channel, bool cpol, bool cpha);
+void disable_cs(libusb_device_handle *devhandle, uint8_t channel);
+void disable_spi_delays(libusb_device_handle *devhandle, uint8_t channel);
 bool is_otp_locked(libusb_device_handle *devhandle);
 void lock_otp(libusb_device_handle *devhandle);
 void reset(libusb_device_handle *devhandle);
-void select_cs(libusb_device_handle *devhandle, unsigned char channel);
+void select_cs(libusb_device_handle *devhandle, uint8_t channel);
 void setup(libusb_device_handle *devhandle);
-void set_voltage(libusb_device_handle *devhandle, unsigned short value);
+void set_voltage(libusb_device_handle *devhandle, uint16_t value);
 
 #endif

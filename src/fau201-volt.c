@@ -1,5 +1,5 @@
-/* FAU201 Volt Command - Version 1.0 for Debian Linux
-   Copyright (c) 2018 Samuel Lourenço
+/* FAU201 Volt Command - Version 1.1 for Debian Linux
+   Copyright (c) 2018-2019 Samuel Lourenço
 
    This program is free software: you can redistribute it and/or modify it
    under the terms of the GNU General Public License as published by the Free
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
                     }
                     else  // If the interface is successfully claimed
                     {
-                        unsigned short volt_code = (unsigned short)(voltage * 1000 + 0.5);
+                        uint16_t volt_code = (uint16_t)(voltage * 1000 + 0.5);
                         configure_spi_mode(devhandle, 0, CPOL0, CPHA0);  // Clock polarity regarding channel 0 is active high (CPOL = 0) and data is valid on each rising edge (CPHA = 0)
                         disable_spi_delays(devhandle, 0);  // Disable all SPI delays for channel 0
                         select_cs(devhandle, 0);  // Enable the chip select corresponding to channel 0, and disable any others

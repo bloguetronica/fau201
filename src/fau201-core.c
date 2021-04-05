@@ -1,5 +1,5 @@
-/* FAU201 core functions - Version 1.0
-   Copyright (c) 2018 Samuel Lourenço
+/* FAU201 core functions - Version 1.1
+   Copyright (c) 2018-2019 Samuel Lourenço
 
    This library is free software: you can redistribute it and/or modify it
    under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,7 @@
 // Global variables
 int err_level;
 
-void configure_spi_mode(libusb_device_handle *devhandle, unsigned char channel, bool cpol, bool cpha)  // Configures the given SPI channel in respect to its clock polarity and phase
+void configure_spi_mode(libusb_device_handle *devhandle, uint8_t channel, bool cpol, bool cpha)  // Configures the given SPI channel in respect to its clock polarity and phase
 {
     unsigned char control_buf_out[2] = {
         channel,                          // Selected channel
@@ -42,7 +42,7 @@ void configure_spi_mode(libusb_device_handle *devhandle, unsigned char channel, 
     }
 }
 
-void disable_cs(libusb_device_handle *devhandle, unsigned char channel)  // Disables the chip select corresponding to the target channel
+void disable_cs(libusb_device_handle *devhandle, uint8_t channel)  // Disables the chip select corresponding to the target channel
 {
     unsigned char control_buf_out[2] = {
         channel,  // Selected channel
@@ -55,7 +55,7 @@ void disable_cs(libusb_device_handle *devhandle, unsigned char channel)  // Disa
     }
 }
 
-void disable_spi_delays(libusb_device_handle *devhandle, unsigned char channel)  // Disables all SPI delays for a given channel
+void disable_spi_delays(libusb_device_handle *devhandle, uint8_t channel)  // Disables all SPI delays for a given channel
 {
     unsigned char control_buf_out[8] = {
         channel,     // Selected channel
@@ -103,7 +103,7 @@ void reset(libusb_device_handle *devhandle)  // Issues a reset to the CP2130, wh
     }
 }
 
-void select_cs(libusb_device_handle *devhandle, unsigned char channel)  // Enables the chip select of the target channel, disabling any others
+void select_cs(libusb_device_handle *devhandle, uint8_t channel)  // Enables the chip select of the target channel, disabling any others
 {
     unsigned char control_buf_out[2] = {
         channel,  // Selected channel
@@ -133,7 +133,7 @@ void setup(libusb_device_handle *devhandle)  // Configures the LTC2640 DAC so th
     }
 }
 
-void set_voltage(libusb_device_handle *devhandle, unsigned short value)  // Sets the registers on the LTC2640 DAC to a given value, in order to set the output voltage (channel 0 must be enabled)
+void set_voltage(libusb_device_handle *devhandle, uint16_t value)  // Sets the registers on the LTC2640 DAC to a given value, in order to set the output voltage (channel 0 must be enabled)
 {
     unsigned char write_command_buf[11] = {
         0x00, 0x00,                   // Reserved
@@ -141,8 +141,8 @@ void set_voltage(libusb_device_handle *devhandle, unsigned short value)  // Sets
         0x00,                         // Reserved
         0x03, 0x00, 0x00, 0x00,       // Three bytes to write
         0x30,                         // Input and DAC registers updated to the given value
-        (unsigned char)(value >> 4),
-        (unsigned char)(value << 4)
+        (uint8_t)(value >> 4),
+        (uint8_t)(value << 4)
     };
     int bytes_written;
     if (libusb_bulk_transfer(devhandle, 0x01, write_command_buf, sizeof(write_command_buf), &bytes_written, TR_TIMEOUT) != 0)
