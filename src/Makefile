@@ -1,5 +1,5 @@
 # Makefile for all FAU201 commands, Debian Linux (GCC)
-# Copyright (c) 2018 Samuel Lourenço
+# Copyright (c) 2018-2022 Samuel Lourenço
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,21 +19,26 @@
 
 
 CC = gcc
-CFLAGS = -O2 -std=gnu99 -Wall -pedantic
+CFLAGS = -O2 -std=c11 -Wall -pedantic
+CXX = g++
+CXXFLAGS = -O2 -std=c++11 -Wall -pedantic
 LDFLAGS = -s
 LDLIBS = -lusb-1.0
-OBJECTS = common.o fau201-core.o libusb-extra.o
-TARGETS = fau201-clear fau201-list fau201-lockotp fau201-reset fau201-volt
+OBJECTS = cp2130.o error.o fau201device.o libusb-extra.o
+TARGETS = fau201-clear
 
 .PHONY: all clean install uninstall
 
 all: $(TARGETS)
 
 $(TARGETS): % : %.o $(OBJECTS)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $<
 
 clean:
 	$(RM) *.o $(TARGETS)
