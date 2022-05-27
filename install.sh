@@ -36,8 +36,8 @@ echo Building and installing binaries and man pages...
 make -C /usr/local/src/fau201 install clean
 echo Applying configurations...
 cat > /etc/udev/rules.d/70-bgtn-fau201.rules << EOF
-SUBSYSTEM=="usb", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="8c35", MODE="0666"
-SUBSYSTEM=="usb_device", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="8c35", MODE="0666"
+SUBSYSTEM=="usb", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="8c46", MODE="0666"
+SUBSYSTEM=="usb_device", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="8c46", MODE="0666"
 EOF
 service udev restart
 echo Done!
