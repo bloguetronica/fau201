@@ -1,0 +1,24 @@
+.TH FAU201-LOCKOTP 1
+.SH NAME
+fau201-lockotp \- lock FAU201 Power Supply OTP ROM
+.SH SYNOPSIS
+.B fau201-lockotp
+.I SERIALNUMBER
+.SH DESCRIPTION
+.B fau201-lockotp
+locks the power supply OTP ROM, preventing further (and possibly unwanted)
+changes. It is important to lock all fields on the OTP ROM, since any changes
+to untouched fields will be irreversible and can impair the device. Note that
+you must specify the serial number of the target device.
+.SH EXAMPLE
+.TP
+.B fau201-lockotp F21-00VIUSL4
+Lock the OTP ROM of device with serial number F21-00VIUSL4.
+.SH "EXIT STATUS"
+Exits with a status of zero in case of success. Returns one should an error
+occur, or two in case of bad input.
+.SH AUTHOR
+Samuel Lourenço (samuel.fmlourenco@gmail.com).
+.SH "SEE ALSO"
+fau201-clear(1), fau201-info(1), fau201-list(1), fau201-reset(1),
+fau201-volt(1)
